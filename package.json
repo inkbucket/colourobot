@@ -1,0 +1,20 @@
+{
+  "name": "colourobot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lokesh Rajendran",
+  "license": "MIT",
+  "dependencies": {
+    "chroma-js": "^2.0.2",
+    "dotenv": "^6.2.0",
+    "lodash": "^4.17.11",
+    "lodash-es": "^4.17.11",
+    "node-server-screenshot": "^0.2.1",
+    "puppeteer": "^1.11.0",
+    "twit": "^2.2.11"
+  }
+}

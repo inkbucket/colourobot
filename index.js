@@ -2,17 +2,14 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 var Twit = require("twit");
 const config = require("./config");
+const tpl = require("./template");
 
 var T = new Twit(config);
 
 function uploadImage(imagePath) {
   var b64content = fs.readFileSync(imagePath, { encoding: "base64" });
 
-  T.post("media/upload", { media_data: b64content }, function(
-    err,
-    data,
-    response
-  ) {
+  T.post("media/upload", { media_data: b64content }, function(err, data, response) {
     var mediaIdStr = data.media_id_string;
     var altText = new Date().toISOString();
     var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
@@ -35,11 +32,13 @@ function uploadImage(imagePath) {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.setViewport({ width: 100, height: 100, deviceScaleFactor: 1.5 });
-  await page.setContent("<input type='submit'/>");
+  await page.setViewport({ width: 325, height: 570, deviceScaleFactor: 1.5 });
+
+  console.log("comp", await tpl());
+  await page.setContent(await tpl());
   await page.screenshot({ path: "example.png" });
 
-  uploadImage("./example.png");
+  // uploadImage("./example.png");
 
   await browser.close();
 })();

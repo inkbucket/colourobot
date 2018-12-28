@@ -1,13 +1,11 @@
 var fs = require("fs");
-var _ = require("lodash");
+var Liquid = require("liquidjs");
 var data = require("./chroma");
 
-var tpl = fs.readFileSync("./index.html", "utf8");
+var engine = Liquid();
+var compiled;
+async function compile() {
+  return await engine.renderFile("./index.html", { data: data.module });
+}
 
-_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
-
-var compiled = _.template(tpl)({ data: data.module });
-
-console.log(compiled);
-
-module.exports = compiled;
+module.exports = compile;

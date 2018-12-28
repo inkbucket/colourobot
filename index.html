@@ -4,22 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./style.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Bungee|Mitr:400,500|Poppins:400,500"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,700" rel="stylesheet" />
+    <style>
+      {% include 'style.css' %}
+    </style>
   </head>
   <body>
     <div class="card-holder">
       <div class="card">
-        <div class="card-header">
-          <span>c</span> <span>o</span> <span>l</span> <span>o</span>
-          <span>u</span> <span>r</span> <span>o</span> <span>b</span>
-          <span>o</span> <span>t</span>
+        <div class="card-body">
+          <div class="main">
+            <div class="paint"><span style="background-color: {{ data.hex }}"></span></div>
+            <div class="info">
+              <div class="hex">
+                <span>hex</span> &middot; <i>{{ data.hex }}</i>
+              </div>
+              <div class="rgb">
+                <span>rgb</span> &middot; <i>{{ data.rgb }}</i>
+              </div>
+              <div class="hsl">
+                <span>hsl</span> &middot; <i>{{ data.hsl }}</i>
+              </div>
+            </div>
+          </div>
+          <div class="shades">
+            <ul>
+              {% for tone in data.tones %}
+              <li style="background-color: {{ tone.color }}">
+                <div class="tile">
+                  <div class="title">{{ tone.name }}</div>
+                  <div class="color">{{ tone.color }}</div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="classes">
+            <ul>
+              {% for class in data.classes %}
+              <li style="background-color: {{ class }}">
+                <div class="tile">
+                  <div class="color">{{ class }}</div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="range">
+            <ul>
+              {% for range in data.range %}
+              <li style="background-color: {{ range }}">
+                <div class="tile">
+                  <div class="color">{{ range }}</div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
-        <div class="card-body">{{ data.color }}</div>
-        <div class="card-footer"><span>@colorobot</span></div>
+        <div class="card-footer"><span>@colourobot</span></div>
       </div>
     </div>
   </body>

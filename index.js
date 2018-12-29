@@ -34,7 +34,6 @@ function uploadImage(imagePath) {
   const page = await browser.newPage();
   await page.setViewport({ width: 325, height: 570, deviceScaleFactor: 1.5 });
 
-  console.log("comp", await tpl());
   await page.setContent(await tpl());
   await page.screenshot({ path: "example.png" });
 

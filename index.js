@@ -6,7 +6,7 @@ const tpl = require("./template");
 
 var T = new Twit(config);
 
-function uploadImage(imagePath) {
+function uploadImage(imagePath, hashTag) {
   var b64content = fs.readFileSync(imagePath, { encoding: "base64" });
 
   T.post("media/upload", { media_data: b64content }, function(err, data, response) {
@@ -17,12 +17,12 @@ function uploadImage(imagePath) {
     T.post("media/metadata/create", meta_params, function(err, data, response) {
       if (!err) {
         var params = {
-          status: "#abcdef",
+          status: hashTag,
           media_ids: [mediaIdStr]
         };
 
         T.post("statuses/update", params, function(err, data, response) {
-          console.log(data);
+          // console.log(data);
         });
       }
     });
@@ -32,13 +32,14 @@ function uploadImage(imagePath) {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.setViewport({ width: 250, height: 264, deviceScaleFactor: 1.5 });
+  await page.setViewport({ width: 250, height: 264, deviceScaleFactor: 1.3 });
 
   fs.writeFileSync("./tpl.html", await tpl());
   await page.setContent(await tpl());
+  let hexEl = await page.$(".hex");
+  let hexValue = await page.evaluate(element => element.textContent, hexEl);
   await page.screenshot({ path: "example.png" });
-
-  // uploadImage("./example.png");
+  uploadImage("./example.png", hexValue);
 
   await browser.close();
 })();

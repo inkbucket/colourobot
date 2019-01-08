@@ -32,8 +32,9 @@ function uploadImage(imagePath) {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.setViewport({ width: 325, height: 570, deviceScaleFactor: 1.5 });
+  await page.setViewport({ width: 250, height: 264, deviceScaleFactor: 1.5 });
 
+  fs.writeFileSync("./tpl.html", await tpl());
   await page.setContent(await tpl());
   await page.screenshot({ path: "example.png" });
 

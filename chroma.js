@@ -3,11 +3,9 @@ var chroma = require("chroma-js");
 var color = chroma
   .cubehelix()
   .start(chroma(chroma.random()).get("hsl.h"))
-  .rotations(-0.35)
-  .gamma(0.5)
-  .lightness([0.3, 0.8])
+  .gamma(0.9)
+  .lightness([0.1, 0.9])
   .scale()
-  .correctLightness()
   .colors(1)[0];
 
 color = chroma(color);
@@ -63,8 +61,8 @@ var data = {
     .cubehelix()
     .start(chroma(color).get("hsl.h"))
     .rotations(-0.35)
-    .gamma(0.9)
-    .lightness([0.3, 0.8])
+    .gamma(0.5)
+    .lightness([0.4, 0.8])
     .scale()
     .correctLightness()
     .colors(5),

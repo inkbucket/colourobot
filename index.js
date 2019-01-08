@@ -1,5 +1,7 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chrome = require("chrome-aws-lambda");
 const fs = require("fs");
+const path = require("path");
 var Twit = require("twit");
 const config = require("./config");
 const tpl = require("./template");
@@ -29,17 +31,24 @@ function uploadImage(imagePath, hashTag) {
   });
 }
 
-(async () => {
-  const browser = await puppeteer.launch();
+module.exports = async (req, res) => {
+  const browser = await puppeteer.launch({
+    args: chrome.args,
+    executablePath: await chrome.executablePath,
+    headless: chrome.headless
+  });
   const page = await browser.newPage();
   await page.setViewport({ width: 250, height: 264, deviceScaleFactor: 1.3 });
 
-  fs.writeFileSync("./tpl.html", await tpl());
+  fs.writeFileSync(__dirname + "./tpl.html", await tpl());
+  fs.writeFileSync(__dirname + "./tpl.html", await tpl());
   await page.setContent(await tpl());
   let hexEl = await page.$(".hex");
   let hexValue = await page.evaluate(element => element.textContent, hexEl);
-  await page.screenshot({ path: "example.png" });
+  const screenshot = await page.screenshot({ path: "./example.png" });
   uploadImage("./example.png", hexValue);
 
   await browser.close();
-})();
+  res.end("screenshot done");
+  res.end(screenshot);
+};

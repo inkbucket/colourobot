@@ -4,18 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "now -e CONSUMER_KEY=@twit-key -e CONSUMER_SECRET=@twit-secret -e ACCESS_TOKEN=@twit-token  -e ACCESS_TOKEN_SECRET=@twit-token-secret"
   },
+  "private": true,
   "author": "Lokesh Rajendran",
   "license": "MIT",
   "dependencies": {
-    "chroma-js": "^2.0.2",
+    "chrome-aws-lambda": "1.11.1",
+    "puppeteer-core": "1.11.0",
     "dotenv": "^6.2.0",
     "liquidjs": "^6.1.1",
-    "lodash": "^4.17.11",
-    "lodash-es": "^4.17.11",
-    "node-server-screenshot": "^0.2.1",
-    "puppeteer": "^1.11.0",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "chroma-js": "2.0.2"
   }
 }

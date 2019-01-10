@@ -1,7 +1,7 @@
 {
   "name": "colourobot",
   "version": "0.0.1",
-  "description": "",
+  "description": "A bot that generates a image of random settle color and tweets",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
